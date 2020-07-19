@@ -1,0 +1,25 @@
+{%  extends 'base.html.twig' %}
+
+{%  block title 'Connection' %}
+
+{% block body %}
+    <div class="container mt-4 col-3">
+        {%  if error %}
+            <div class="alert alert-danger">
+                {{ error.messageKey| trans(error.messagedata, 'security') }}
+            </div>
+        {% endif %}
+ 
+        <form action="{{ path('login') }}" method="post" class="mb-5">
+            <div class="form-group">
+                <label for="username" class="row">Pseudo</label>
+                <input type="text" id="username" name="_username" class="form-control" value="{{ last_username }}">
+            </div>
+            <div class="form-group">
+                <label for="password" class="row">Password</label>
+                <input type="password" id="password" name="_password" class="form-control">
+            </div>
+            <button class="btn btn-light mb-5" type="submit">login</button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blog @ PiB's{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type ="text/css" href="/css/pagination.css">
+{% endblock %} 
+
+{% block body %}
+
+    <div class="container" >
+        <h1 class="title" style="margin-bottom:100px">Pibadi...</h1>
+        {% for post in posts %}
+        <div class="row mb-5 bg_grey">
+            <div class="col-4 align-items-center my-5">
+                <img class="img-fluid rounded mb-4 mb-lg-0" src="/public/img/{{ post.imageUrl }}">
+            </div>
+
+            <div class="col-lg-6">
+                <h1 class="font-weight-light">{{ post.title }}</h1>
+                <p>{{ post.content }} </p>
+                <a> {{post.formatedCreatedAt}} - {{post.comments.count}} comments </a>
+            </div>
+
+            <div class="col-1 align-items-center my-5" style="">
+                <button onclick="window.location.href='{{ path('post_show', {'id': post.id}) }}'" class="btn btn-light" type="button">Read</button>
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="pagination justify-content-center">{{ knp_pagination_render(posts)}}</div>
+
+{% endblock %}

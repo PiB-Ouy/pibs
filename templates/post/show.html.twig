@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}@Pib's Post{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <h1 class="title">Pibadi le {{ post.createdAt ? post.createdAt|date('d-m-Y') : '' }}</h1>
+
+    <table class="table bg_grey">
+        <tbody>
+            <tr>                
+                <td><h2>{{ post.title }}</h2></td>
+            </tr>
+            <tr>
+                <td><img class="img-fluid rounded mb-4 mb-lg-0" src="/public/img/{{ post.imageUrl }}"></td>
+            </tr>
+            <tr>
+                <td>{{ post.content }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+  
+
+    <div class="pt-3 mb-3 bg_grey" style="text-align: left; padding-bottom: 40px; ">
+        <h5 class="mb-3" style="margin-left: 80px">{{comments.count}} Comments</h5>
+        {% for comment in comments %}
+            <a style="margin-left: 40px">{{comment.author}} ({{comment.formatedCreatedAt}}) :</a>
+            <p style="margin-left: 60px; margin-bottom: 20px; ">{{comment.content}}</p>
+        {% endfor %}
+        
+        {% if app.user %}
+            {{form_start(commentForm)}}
+                {{form_row(commentForm.content, {'attr':{'palceholder': "Your comment..."}})}}
+                <button type="submit" class="btn btn-light">Add comment</button>
+            {{form_end(commentForm)}}       
+        {% else %}
+            <div style="margin-left: 80px">
+                <h5> Only registered users can comment posts 
+                    <button onclick="window.location.href='{{ path('login') }}'" class="ml-5 btn btn-light" type="button">Connect</button>
+                </h5>
+            </div> 
+        {% endif %}
+    <div>
+</div>
+</div>
+
+<div style="text-align: right">
+    <button onclick="window.location.href='{{ path('post_index') }}'" class="btn btn-light mb-3"
+    style="margin-right: 40px;" type="button">Back to list</button>
+</div>
+
+</div>
+
+{% endblock %}

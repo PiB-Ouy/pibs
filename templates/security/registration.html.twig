@@ -1,0 +1,18 @@
+{%  extends 'base.html.twig' %}
+
+{%  block title 'Registration' %}
+
+{% block body %}
+    <h4 class="mt-4"> Registration form </h4>
+
+   
+
+    {{form_start(form)}}
+    <div class="container col-3">
+        {{form_widget(form)}}
+        <button type="submit" class="btn btn-light mb-5">Subscribe</button>
+    </div>
+    {{form_end(form)}}
+
+
+{% endblock %}
