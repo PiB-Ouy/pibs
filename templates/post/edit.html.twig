@@ -4,10 +4,16 @@
 
 {% block body %}
     <h1>Edit Post</h1>
-
+    
     {{ include('post/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('admin_blog') }}">back to list</a>
+
+    <a class="btn btn-light mb-2" href="{{ path('admin_posts') }}">back to list</a>
 
     {{ include('post/_delete_form.html.twig') }}
+{% endblock %}
+
+{% block javascripts %}
+    <script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
+    <script type="text/javascript">bkLib.onDomLoaded(nicEditors.allTextAreas);</script>
 {% endblock %}

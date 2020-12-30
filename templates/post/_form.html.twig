@@ -1,4 +1,28 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_row(form.title, {
+        'attr':{
+                'class':'col-6'
+    }})}}
+
+    {{ form_row(form.author, {
+        'attr':{
+                'class':'col-3'
+    }})}}
+
+
+    {{ form_row(form.imageFile, {
+        'attr':{
+                'placeholder': post.imageUrl,          
+    }})}}
+
+    {{ form_row(form.content, {
+        'attr':{
+                'class':'col-10',
+                
+                
+    }})}}
+
+
+   
+    <button class="btn btn-light m-2">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

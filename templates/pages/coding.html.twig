@@ -1,11 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Coding @ PiB's{% endblock %}
+{% block title %}Coding @ PiB's
+{% endblock %}
 
 {% block body %}
 
-<div class="container">
-        <h1 class="title">ama_coder</h1>
-</div>
+	<div class="container">
+		<h1 class="title">ama_coder</h1>
+
+		{% include 'pages/_dirichlet.html.twig' %}
+
+		{% include 'pages/_pokersolver.html.twig' %}
+
+
+	</div>
 
 {% endblock %}

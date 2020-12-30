@@ -1,11 +1,49 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Admin PiB'S Blog{% endblock %}
+{% block title %}BlogAdmin @ PiB's{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type ="text/css" href="/css/pagination.css">
+{% endblock %} 
 
 {% block body %}
 
-<div class="container">
-        <h1 class=""style="margin-top : 100px; color: blue;">Blog Management</h1>
-</div>
+  <h1>Posts list</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Number</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Created</th>
+                <th>Comments</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for post in posts %}
+            <tr class="">
+                <td>{{ post.id }}</td>
+                <td>{{ post.title }}</td>
+                <td>{{ post.author }}</td>
+                <td>{{ post.formatedCreatedAt }}</td>
+                <td>{{ post.comments|length }}</td>
+                <td>{{ post.imageUrl }}</td>
+                <td class="row">
+                    <a class="btn btn-info mb-2" href="{{ path('admin_post_edit', {'id': post.id}) }}">Edit</a>
+                    <a> {{ include('post/_delete_form.html.twig') }} </a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a class="btn btn-info mb-5" href="{{ path('admin_post_new') }}">Create new Post</a>
+    <div class="pagination justify-content-center">{{ knp_pagination_render(posts)}}</div>
 
 {% endblock %}

@@ -2,10 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\PostRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+
+use App\Entity\Comment;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PostRepository;
+use Doctrine\Common\Collections\Collection;
+use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=PostRepository::class)
@@ -45,13 +48,19 @@ class Post
     private $image_url;
 
     /**
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="post", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="post")
      */
     private $comments;
+
+    /**
+     * 
+     */
+    private $imageFile;
 
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->image_url="";
     }
 
     public function getId(): ?int
@@ -74,6 +83,11 @@ class Post
     public function getContent(): ?string
     {
         return $this->content;
+    }
+
+    public function getContent300(): ?string
+    {
+        return substr($this->content, 0,450);
     }
 
     public function setContent(string $content): self
@@ -105,6 +119,7 @@ class Post
         return $this->created_at->format('d-m-Y');
     }
 
+
     public function setCreatedAt(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
@@ -123,6 +138,8 @@ class Post
 
         return $this;
     }
+
+    
 
     /**
      * @return Collection|Comment[]
@@ -154,4 +171,18 @@ class Post
 
         return $this;
     }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(?File $imageFile): self
+    {
+        $this->imageFile = $imageFile;
+
+        return $this;
+    }
+
+    
 }

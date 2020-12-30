@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UserAdmin @ PiB's{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type ="text/css" href="/css/pagination.css">
+{% endblock %} 
+
+{% block body %}
+
+    <div class="container" >
+        <h1 class="title" style="margin-bottom:100px">Users Management</h1>
+        
+    </div>
+
+      <div class="row" style = "margin-bottom:55px;">
+        <div class="col-md-12">
+            <table id="ftable" class="table table-condensed table-striped table-bordered" cellspacing="0" width="100%">
+                <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Role</th>
+                    
+                    <th width="60px">Option</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.roles }}</td>
+                        
+                        <td class = "actions">
+                            <a href="{{ path('inproducto_show', { 'id': entity.idProducto }) }}"
+                               class = "btn btn-sm btn-info glyphicon glyphicon-search" data-toggle="tooltip" title="Edit"></a>
+                            {% if app.user.nivel > 60 %}
+                                <a href="{{ path('inproducto_edit', { 'id': entity.idProducto }) }}"
+                                   class = "btn btn-sm btn-primary glyphicon glyphicon-edit" data-toggle="tooltip" title="Delete"></a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    
+
+{% endblock %}

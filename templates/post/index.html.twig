@@ -11,25 +11,48 @@
     <div class="container" >
         <h1 class="title" style="margin-bottom:100px">Pibadi...</h1>
         {% for post in posts %}
-        <div class="row mb-5 bg_grey">
-            <div class="col-4 align-items-center my-5">
-                <img class="img-fluid rounded mb-4 mb-lg-0" src="/public/img/{{ post.imageUrl }}">
-            </div>
+        <div class="row mb-5 border border-dark">
+            
+                <div class="col-3 align-items-center my-5">
+                {% if (post.imageUrl) %}
+                    <img class="img-fluid rounded mb-4 mb-lg-0 mt-4" src="/img/postImg/{{ post.imageUrl }}">
+                {% else %}
+                    <img class="img-fluid rounded mb-4 mb-lg-0 mt-4" src="/img/postImg/defaultFile.jpg">
+                {% endif %}
+                    
+                </div>
 
-            <div class="col-lg-6">
-                <h1 class="font-weight-light">{{ post.title }}</h1>
-                <p>{{ post.content }} </p>
-                <a> {{post.formatedCreatedAt}} - {{post.comments.count}} comments </a>
-            </div>
-
-            <div class="col-1 align-items-center my-5" style="">
-                <button onclick="window.location.href='{{ path('post_show', {'id': post.id}) }}'" class="btn btn-light" type="button">Read</button>
-            </div>
-
+                <div class="col-9">
+                    <h3 class="font-weight-light mt-4 mb-4">{{ post.title }}</h3>
+                    <textarea id="postArea{{ post.id }}" class="col-12" style="">{{ post.content300 }}...</textarea>
+                    <a> {{post.formatedCreatedAt}} - {{post.comments.count}} comment(s) </a> </br>
+                    <button onclick="window.location.href='{{ path('post_show', {'id': post.id}) }}'" class="btn btn-light m-3" type="button">Read</button>
+                </div>
         </div>
+       
         {% endfor %}
     </div>
 
     <div class="pagination justify-content-center">{{ knp_pagination_render(posts)}}</div>
 
+{% endblock %}
+
+
+{% block javascripts %}
+    <script src="/js/nicEdit.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        bkLib.onDomLoaded(nicEditors.allTextAreas);
+        </script>
+            {% for post in posts %} 
+                <script>
+                var myNicEditor = new nicEditor({maxHeight : 150});
+                myNicEditor.addInstance('postArea'+{{ post.id }});
+                nicEditors.findEditor('postArea'+{{ post.id }}).disable();
+               
+                </script>
+            {% endfor %}
+        <script>
+    </script>
+    
+    
 {% endblock %}
